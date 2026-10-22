@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'"><meta name="referrer" content="no-referrer"><title>FITABLE · 보증 등록</title><link rel="stylesheet" href="style.css"><script defer src="app.js"></script></head>
+<body>
+<div class="preview-banner">체험용 페이지 · 실제 보증 접수는 아직 시작하지 않았습니다.</div>
+<header><a class="brand" href="./">FITABLE<span>운동하는 삶을 설계합니다</span></a><nav aria-label="페이지 메뉴"><a href="./" aria-current="page">등록 체험</a><a href="plan.html">목적·진행 계획</a><a href="card.html">QR 안내물</a></nav></header>
+<main class="layout">
+<aside class="intro"><p class="eyebrow">FITABLE CARE / 01</p><h1>구매한 순간부터,<br>오래 쓰는 순간까지.</h1><p class="lead">어디에서 구매했든,<br>내 제품의 구매 정보를 한곳에.</p><div class="line-art" aria-hidden="true"><div class="arch"></div><div class="bar"></div><span>MADE FOR YOUR EVERYDAY</span></div><div class="intro-note"><strong>복잡한 시리얼 번호 없이</strong><p>제품에 함께 들어 있는 QR로 접속하고<br>구매처와 주문정보를 남기는 방식입니다.</p></div></aside>
+<section class="panel" aria-labelledby="form-title">
+<ol class="steps"><li class="active" id="step-one">01 구매정보</li><li id="step-two">02 내용 확인</li><li id="step-three">03 접수 안내</li></ol>
+<div id="input-view"><p class="eyebrow">WARRANTY REGISTRATION</p><h2 id="form-title">내 제품 등록하기</h2><p class="muted">아래는 등록 흐름을 확인하는 시안입니다.<br>실제 개인정보 대신 예시 정보를 사용해 주세요.</p>
+<button class="sample" id="sample" type="button">예시 정보로 채우기 ↗</button>
+<noscript><p class="notice">등록 체험에는 JavaScript가 필요합니다. 실제 접수는 진행되지 않습니다.</p></noscript>
+<form id="registration" autocomplete="off">
+<div class="field"><label for="product">등록할 제품 <span>*</span></label><select id="product" required><option value="OPB01">오브제 와이드 풀업바</option><option value="other">다른 제품 (추가 준비 중)</option></select><p class="hint" id="product-hint">제품별 QR로 들어오면 제품이 미리 선택됩니다.</p></div>
+<fieldset><legend>구매처 <span>*</span></legend><div class="channels"><label><input type="radio" name="channel" value="cafe24" required checked><span>핏에이블 공식몰</span></label><label><input type="radio" name="channel" value="naver"><span>네이버</span></label><label><input type="radio" name="channel" value="coupang"><span>쿠팡</span></label><label><input type="radio" name="channel" value="other"><span>기타 구매처</span></label></div></fieldset>
+<div class="field" id="seller-field" hidden><label for="seller">구매한 판매처 <span>*</span></label><input id="seller" maxlength="80" placeholder="예) 구매한 쇼핑몰 이름"></div>
+<div class="field"><label for="order">주문번호 <span>*</span></label><input id="order" required maxlength="80" placeholder="구매처의 주문내역에서 확인해 주세요"><p class="hint" id="order-hint">공식몰 마이페이지 → 주문내역에서 확인할 수 있습니다.</p></div>
+<div class="field"><label for="date">구매일 <span>*</span></label><input id="date" type="date" required></div>
+<div class="two-col"><div class="field"><label for="buyer">구매자 이름 <span>*</span></label><input id="buyer" required maxlength="40" placeholder="예) 체험고객"></div><div class="field"><label for="phone">연락처 <span>*</span></label><input id="phone" type="tel" required pattern="01[0-9][ -]?[0-9]{3,4}[ -]?[0-9]{4}" maxlength="13" placeholder="010-0000-0000"><p class="hint">몰 로그인 정보와 자동으로 연결되지 않습니다.</p></div></div>
+<div class="field attachment" id="proof-field" hidden><label for="proof">구매 증빙 화면 <span>*</span></label><p class="hint">운영 시에는 주문번호·판매처·제품명·구매일이 보이는 캡처를 받습니다. 주소·결제정보는 가려 주세요.</p><button class="sample" type="button" id="proof-sample">예시 증빙 선택</button><input id="proof" type="checkbox" required hidden><p class="hint" id="proof-label">체험에서는 실제 파일을 업로드하지 않습니다.</p></div>
+<details class="privacy"><summary>개인정보 수집 안내 초안 보기</summary><p>운영 시 수집 예정: 이름, 연락처, 구매처, 주문번호, 구매일, 제품, 필요한 경우 구매 증빙.</p><p>목적: 구매 사실 확인과 보증 등록·A/S 처리. 마케팅 수신 동의는 별도로 받으며 보증 등록 조건으로 묶지 않습니다.</p><p>보유 기간·처리방침·철회 및 삭제 방법은 실제 접수 전 확정하여 안내합니다. 이 시안은 정보를 저장하거나 전송하지 않습니다.</p></details>
+<label class="check"><input type="checkbox" id="consent" required><span>실제 접수가 아닌 체험이며, 입력 내용이 저장되지 않음을 확인했습니다.</span></label>
+<p class="error" id="error" role="alert"></p><button type="button" class="primary" id="next">입력 내용 확인하기 <span>→</span></button>
+<p class="hint bottom-note">등록 접수와 보증 확정은 다릅니다. 보증기간과 적용 범위는 구매 확인 후 해당 제품의 정책에 따라 안내합니다.</p>
+</form></div>
+<div id="review-view" hidden tabindex="-1"><p class="eyebrow">CHECK YOUR DETAILS</p><h2>입력 내용을 확인해 주세요</h2><p class="muted">아직 접수되지 않았습니다.</p><dl id="review-details"></dl><p class="notice">체험 정보는 서버로 전송되지 않습니다.<br>보증 연장·적립금은 확정된 혜택이 아닙니다.</p><button class="primary" id="finish" type="button">접수 안내 체험하기 <span>→</span></button><button class="secondary" id="back" type="button">내용 수정하기</button></div>
+<div id="done-view" hidden tabindex="-1"><div class="done-mark" aria-hidden="true">✓</div><p class="eyebrow">PREVIEW COMPLETE</p><h2>등록 흐름을 확인했어요</h2><p class="muted">체험이 완료되었습니다.<br>실제 보증 등록이나 문자 발송은 이루어지지 않았습니다.</p><div class="status-card"><small>실제 운영 시 접수 직후 표시할 상태</small><strong>구매 확인 대기</strong><p>구매정보를 확인한 뒤 보증 적용 여부와 기간을 안내합니다. 확인 전에는 보증 만료일을 확정하지 않습니다.</p></div><button class="primary" id="restart" type="button">다시 체험하기 <span>↗</span></button><a class="text-link" href="plan.html">왜 만드는지, 다음에 무엇을 할지 보기 →</a></div>
+</section></main>
+<footer><strong>FITABLE</strong><p>보증 등록 서비스 준비 중 · 본 페이지는 기능 체험용입니다.</p><a href="https://fitablekorea.com/board/as.html" rel="noreferrer">기존 A/S 안내 보기 ↗</a></footer>
+</body></html>
