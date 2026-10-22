@@ -13,7 +13,7 @@ function updateChannel(){const c=channel();const need=c==='coupang'||c==='other'
 form.querySelectorAll('input[name=channel]').forEach(el=>el.addEventListener('change',updateChannel));
 $('proof-sample').addEventListener('click',()=>{proofSelected=true;$('proof-label').textContent='예시 증빙 선택됨 · 실제 파일은 사용하지 않습니다.';$('proof-sample').textContent='예시 증빙 선택 완료 ✓';});
 $('sample').addEventListener('click',()=>{$('order').value='DEMO-ORDER-001';$('buyer').value='체험고객';$('phone').value='010-0000-0000';$('date').value=$('date').max;$('seller').value='예시 판매처';$('error').textContent='예시 정보가 입력되었습니다. 아래 체험 안내 확인 후 진행해 주세요.';});
-function show(view,step){['input-view','review-view','done-view'].forEach(id=>$(id).hidden=id!==view);['step-one','step-two','step-three'].forEach((id,i)=>$(id).classList.toggle('active',i===step));$(view).setAttribute('tabindex','-1');$(view).focus();$('step-one').scrollIntoView({behavior:'smooth',block:'start'});}
+function show(view,step){['member-view','input-view','review-view','done-view'].forEach(id=>$(id).hidden=id!==view);['step-member','step-one','step-two','step-three'].forEach((id,i)=>$(id).classList.toggle('active',i===step));$(view).setAttribute('tabindex','-1');$(view).focus();$('step-member').scrollIntoView({behavior:'smooth',block:'start'});}
 form.addEventListener('submit',event=>event.preventDefault());
 $('next').addEventListener('click',()=>{
  $('error').textContent='';
@@ -25,9 +25,11 @@ $('next').addEventListener('click',()=>{
  const values=[['제품','오브제 와이드 풀업바'],['구매처',c==='other'?$('seller').value:channels[c]],['주문번호',$('order').value],['구매일',$('date').value],['이름',$('buyer').value],['연락처',$('phone').value],['구매 증빙',(c==='coupang'||c==='other')?'예시 증빙':'필요 시 추가 확인']];
  $('review-details').replaceChildren();
  for(const [key,value] of values){const row=document.createElement('div');const dt=document.createElement('dt');const dd=document.createElement('dd');dt.textContent=key;dd.textContent=value;row.append(dt,dd);$('review-details').append(row);}
- show('review-view',1);
+ show('review-view',2);
 });
-$('back').addEventListener('click',()=>show('input-view',0));
-$('finish').addEventListener('click',()=>{form.reset();$('review-details').replaceChildren();proofSelected=false;show('done-view',2);});
-$('restart').addEventListener('click',()=>{form.reset();proofSelected=false;$('proof-label').textContent='체험에서는 실제 파일을 업로드하지 않습니다.';$('proof-sample').textContent='예시 증빙 선택';updateChannel();show('input-view',0);});
+$('back').addEventListener('click',()=>show('input-view',1));
+$('finish').addEventListener('click',()=>{form.reset();$('review-details').replaceChildren();proofSelected=false;show('done-view',3);});
+$('preview-start').addEventListener('click',()=>show('input-view',1));
+$('member-back').addEventListener('click',()=>show('member-view',0));
+$('restart').addEventListener('click',()=>{form.reset();proofSelected=false;$('proof-label').textContent='체험에서는 실제 파일을 업로드하지 않습니다.';$('proof-sample').textContent='예시 증빙 선택';updateChannel();show('member-view',0);});
 updateChannel();
