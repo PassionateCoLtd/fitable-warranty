@@ -1,0 +1,6 @@
+'use strict';
+(()=>{const variants=[...document.querySelectorAll('[data-variant]')],tabs=[...document.querySelectorAll('[data-select]')],dialog=document.querySelector('#image-dialog'),image=document.querySelector('#large-image');
+function select(id){tabs.forEach(b=>{const yes=b.dataset.select===id;b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes));});variants.forEach(card=>card.classList.toggle('selected',card.dataset.variant===id));}
+tabs.forEach(button=>button.addEventListener('click',()=>select(button.dataset.select)));
+document.querySelectorAll('[data-enlarge]').forEach(button=>button.addEventListener('click',()=>{const card=variants.find(x=>x.dataset.variant===button.dataset.enlarge),source=card.querySelector('img');image.src=source.src;image.alt=source.alt;document.querySelector('#dialog-title').textContent=card.querySelector('h2').textContent+' · 이미지 시안';dialog.showModal();}));
+document.querySelector('#close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});})();
