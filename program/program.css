@@ -1,0 +1,35 @@
+/* 단계 프로그램 화면 전용. 색은 style.css 의 변수만 쓴다(색 값 직접 지정 금지). */
+.level-card{border-color:var(--line)}
+.level-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.level-head .eyebrow{margin-bottom:6px}
+.level-stage,.level-badge{display:inline-flex;border-radius:24px;padding:4px 10px;font-size:11px;line-height:1.5;background:var(--soft);color:var(--ink)}
+.level-badge{background:var(--mint);font-weight:700}
+.level-card h2,.level-row h2{margin:4px 0 8px}
+.level-next{margin-top:18px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.level-next p{margin:0 0 6px;font-size:13px;line-height:1.7}
+.level-next-title{font-weight:700;font-size:13px;margin:0 0 6px}
+.level-meter{display:flex;align-items:center;gap:10px;font-size:12px;margin:8px 0 4px}
+.level-dots{display:inline-flex;gap:6px}
+.level-dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);display:block}
+.level-dots i.on{background:var(--ink)}
+.level-ready{margin-top:16px;padding:16px 18px;border-radius:14px;background:var(--mint)}
+.level-ready p{margin:0 0 10px;font-size:13px;line-height:1.7}
+.level-ready .button-row{margin:6px 0 8px}
+.level-stop{border-left:4px solid var(--error)}
+.level-actions{margin-top:16px}
+.level-prepared{font-size:12px;line-height:1.7;color:var(--muted);margin:0 0 8px}
+.level-links{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px}
+.level-links .text-button{max-width:none;min-height:44px}
+.level-disclaimer{font-size:11px;line-height:1.7;color:var(--muted);margin:10px 0 0}
+.level-list{list-style:none;padding:0;margin:0}
+.level-row.current{border:2px solid var(--ink)}
+.level-plan-line{font-weight:700;font-size:14px;margin:10px 0 4px}
+.level-rules,.level-stop-list,.level-basis,.level-source-list{padding-left:18px;margin:10px 0;font-size:12px;line-height:1.8;color:var(--muted)}
+.level-rules li,.level-stop-list li,.level-basis li,.level-source-list li{margin-bottom:6px}
+.level-basis strong{color:var(--ink);font-weight:650}
+.level-source-list a{color:var(--ink);word-break:break-word}
+.level-source-list .small{display:block}
+.level-detail{margin:12px 0}
+.level-detail summary{cursor:pointer;font-size:13px;padding:12px 0;text-decoration:underline;text-underline-offset:4px}
+.level-cues{margin-top:12px}
+
