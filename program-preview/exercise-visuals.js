@@ -300,7 +300,9 @@
     options = options || {};
     // Same exercise, different picture for a different way of doing it (4단계 발 디딤 턱걸이).
     const variant = Object.prototype.hasOwnProperty.call(VARIANTS, id + ':' + options.assist) ? VARIANTS[id + ':' + options.assist] : null;
-    const key = variant || id, item = catalog[key];
+    const key = variant || id, source = catalog[key];
+    const gripGuide = options.grip && root.FitableCore?.gripGuide(id, options.grip, options.assist);
+    const item = gripGuide ? {...source, steps:source.steps.map((part,index)=>index===0?{...part,title:gripGuide.direction,text:gripGuide.setup+' '+part.text}:part),cue:source.cue+' 손 방향은 선택한 그립 안내를 확인해 주세요.'} : source;
     const attrs = `data-exercise-visual="${id}"${variant ? ` data-visual-variant="${escape(options.assist)}"` : ''}`;
     const step = Number(options.step) === 1 ? 1 : 0;
     if (options.compact) {

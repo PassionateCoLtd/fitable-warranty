@@ -7,6 +7,16 @@
   negative_pullup:{id:'negative_pullup',name:'천천히 내려오기',term:'네거티브 턱걸이',summary:'바닥에서 다리로 밀며 올라간 뒤, 천천히 내려와요.',level:'발 디딤 턱걸이가 편해졌다면',unit:'회',max:500,muscles:['back','arms'],guide:['바닥에서 다리로 밀며 팔로 당겨, 올라갈 수 있는 가장 높은 곳까지 올라가요. 점프하지 않아요.','거기서 3~5초 동안 팔을 천천히 펴며 내려와요.','팔이 다 펴지면 발을 바닥에 천천히 내려요. 툭 떨어지지 않아요. 이 움직임이 1회예요.']},
   band_pullup:{id:'band_pullup',name:'밴드 도움 받아 턱걸이',term:'밴드 보조 풀업',summary:'호환되는 밴드의 도움으로 몸을 올려요.',level:'제품·밴드의 호환 확인 후',unit:'회',max:500,muscles:['back','arms'],guide:['철봉과 밴드 설명서에서 함께 써도 되는지 먼저 확인해요.','설명서에 맞게 준비한 뒤 반동 없이 몸을 올려요.','천천히 내려와요. 밴드를 갑자기 놓지 않아요.']}
  };
+ const grips={
+  overhand:{id:'overhand',name:'풀업 그립',term:'오버핸드',direction:'손등이 나를 향하게',setup:'손등이 얼굴 쪽을 향하게 잡아요. 엄지까지 감싸고 손목을 곧게 유지해 주세요.',pull:'팔꿈치를 몸 옆으로 내리며 올라가요. 몸을 흔들거나 목만 뻗지 않고 천천히 내려와요.'},
+  underhand:{id:'underhand',name:'친업 그립',term:'언더핸드',direction:'손바닥이 나를 향하게',setup:'손바닥이 얼굴 쪽을 향하게 잡아요. 엄지까지 감싸고 손목을 뒤로 꺾지 않아요.',pull:'팔꿈치를 몸 앞쪽에 두고 아래로 당기며 올라가요. 반동 없이 천천히 내려와요.'}
+ };
+ function gripGuide(id,grip,assistance='none'){
+  const g=grips[grip];if(!g||!exercises[id])return null;
+  const pulling=['pullup','negative_pullup','band_pullup'].includes(id);
+  const movement=id==='negative_pullup'?'올라갈 수 있는 범위에서 시작해 팔을 천천히 펴며 내려와요.':pulling?g.pull:id==='scapular_pull'?'팔꿈치를 편 채 어깨를 귀에서 멀어지게 내렸다가 돌아와요.':'팔을 편 채 몸을 흔들지 않고 버텨요. 어깨 힘을 완전히 풀지 않아요.';
+  return {...g,movement,width:'제품 그립 안에서 양손을 대칭으로 잡아 주세요. 기록을 비교할 때는 손 방향과 간격을 같게 맞춰 주세요.',finish:assistance==='feet'?'발끝은 바닥에 댄 채, 발이 떨어지지 않는 범위에서 움직여요.':'끝낼 때는 발을 바닥에 천천히 내려요.',note:'손목이나 어깨가 불편하면 멈춰 주세요. 손 간격을 억지로 넓히지 않아요.'};
+ }
  const goals={hang:{name:'철봉에 익숙해지기',note:'짧게 매달리며 시작해요.',starter:'hang'},first_pullup:{name:'첫 턱걸이 해 보기',note:'지금 가능한 동작부터 연습해요.',starter:'hang'},more_pullups:{name:'턱걸이 더 해 보기',note:'같은 방법으로 한 기록을 비교해요.',starter:'pullup'}};
  const recommendations={
   hang:{target:10,planned_sets:2,rest_seconds:60,goal:'hang',note:'10초가 어려우면 더 짧게 해도 괜찮아요.'},
@@ -51,5 +61,5 @@
   const suggest_down=latest.discomfort||(judged.length>=2&&judged.slice(0,2).every(j=>j.effort==='hard'&&!j.reached));
   return {needed,streak,ready:Boolean(level.advance)&&streak>=needed,latest:{...latest,label:conditionLabel(same[0])},hold,suggest_down,sessions:judged.length};
  }
- const api={demoChanged,levelById,levelFor,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
+ const api={grips,gripGuide,demoChanged,levelById,levelFor,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

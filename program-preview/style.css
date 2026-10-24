@@ -20,3 +20,7 @@ html{scroll-padding-bottom:112px}.setup-card{scroll-margin-top:20px}.setup-layou
 
 /* Official wordmark: preserve the supplied vector proportions. */
 .brand{display:flex;align-items:center;min-height:44px}.brand-logo{display:block;width:126px;height:auto;max-width:100%;object-fit:contain}
+
+/* Product and goal sit under the service name; grip stays visible before starting. */
+.program-context{display:grid;gap:5px;margin:20px 0}.program-context span{font-size:12px;opacity:.8}.program-context strong{font-size:21px}.program-context small{font-size:12px}
+.grip-field{margin:18px 0 12px}.grip-field select{width:100%;min-height:48px;white-space:normal}.grip-guide{background:#f5f3ed;border:1px solid #dfe2df;border-radius:14px;padding:18px;margin:16px 0}.grip-guide h3{font-size:17px}.grip-guide>strong{display:block;margin:10px 0;font-size:15px}.grip-guide ol{padding-left:20px;margin:10px 0}.grip-guide li{margin:8px 0;line-height:1.65}.grip-guide .small{margin-top:10px}.quick-grip-note{margin-bottom:18px}
