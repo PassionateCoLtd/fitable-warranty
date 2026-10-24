@@ -1,10 +1,10 @@
 'use strict';
 (function(root){
  const exercises={
-  hang:{id:'hang',name:'매달리기',term:'데드행',summary:'팔을 펴고 철봉을 잡은 채 버텨요.',level:'처음이라면 여기서 시작',unit:'초',max:3600,muscles:['back','arms'],guide:['발을 딛고 철봉을 두 손으로 잡아요. 점프해서 잡지 않아요.','팔을 편 채 몸을 흔들지 않고 버텨요. 어깨 힘을 완전히 풀지 않아요.','힘들어지기 전에 발을 딛고 천천히 내려와요.']},
-  scapular_pull:{id:'scapular_pull',name:'어깨 내리기',term:'견갑골 당기기',summary:'팔은 그대로, 어깨만 귀에서 멀어지게 해요.',level:'매달리기가 편안하다면',unit:'회',max:500,muscles:['back','shoulders'],guide:['철봉을 잡고 팔꿈치를 편 채 매달려요.','팔을 굽히지 않고 어깨만 아래로 내려요. 몸이 조금 올라가요.','어깨를 천천히 처음 위치로 돌려요. 이 움직임이 1회예요.']},
-  pullup:{id:'pullup',name:'턱걸이',term:'풀업',summary:'몸을 천천히 올렸다가 내려요.',level:'이미 턱걸이를 할 수 있다면',unit:'회',max:500,muscles:['back','arms'],guide:['철봉을 잡고 팔을 편 자세로 시작해요.','팔꿈치를 아래로 당기며 몸을 올려요. 목만 뻗지 않아요.','천천히 내려와 팔을 펴요. 올라갔다 내려오면 1회예요.']},
-  negative_pullup:{id:'negative_pullup',name:'천천히 내려오기',term:'네거티브 턱걸이',summary:'받침을 밟고 위 자세로 올라간 뒤, 천천히 내려와요.',level:'발 받침 턱걸이가 편해졌다면',unit:'회',max:500,muscles:['back','arms'],guide:['흔들리지 않는 받침을 밟고 올라가 턱이 철봉 위에 오게 잡아요. 점프하지 않아요.','발을 떼고 3~5초 동안 팔을 천천히 펴며 내려와요.','팔이 다 펴지면 발을 받침에 다시 디뎌요. 툭 떨어지지 않아요. 이 움직임이 1회예요.']},
+  hang:{id:'hang',name:'매달리기',term:'',summary:'팔을 펴고 철봉을 잡은 채 버텨요.',level:'처음이라면 여기서 시작',unit:'초',max:3600,muscles:['back','arms'],guide:['바 아래 바닥에 서서 두 손으로 철봉을 잡아요. 점프해서 잡지 않아요.','무릎을 굽혀 발을 바닥에서 띄우고, 팔을 편 채 몸을 흔들지 않고 버텨요. 어깨 힘을 완전히 풀지 않아요.','힘들어지기 전에 발을 바닥에 천천히 내려요.']},
+  scapular_pull:{id:'scapular_pull',name:'어깨 내리기',term:'견갑골 당기기',summary:'팔은 그대로, 어깨만 귀에서 멀어지게 해요.',level:'매달리기가 편안하다면',unit:'회',max:500,muscles:['back','shoulders'],guide:['바닥에 서서 철봉을 잡고, 무릎을 굽혀 발을 띄운 뒤 팔꿈치를 편 채 매달려요.','팔을 굽히지 않고 어깨만 아래로 내려요. 몸이 조금 올라가요.','어깨를 천천히 처음 위치로 돌려요. 이 움직임이 1회예요. 끝나면 발을 바닥에 천천히 내려요.']},
+  pullup:{id:'pullup',name:'턱걸이',term:'풀업',summary:'몸을 천천히 올렸다가 내려요.',level:'이미 턱걸이를 할 수 있다면',unit:'회',max:500,muscles:['back','arms'],guide:['철봉을 잡고 무릎을 굽혀 발을 띄운 뒤, 팔을 편 자세로 시작해요.','팔꿈치를 아래로 당기며 몸을 올려요. 목만 뻗지 않아요.','천천히 내려와 팔을 펴요. 올라갔다 내려오면 1회예요.']},
+  negative_pullup:{id:'negative_pullup',name:'천천히 내려오기',term:'네거티브 턱걸이',summary:'바닥에서 다리로 밀며 올라간 뒤, 천천히 내려와요.',level:'발 디딤 턱걸이가 편해졌다면',unit:'회',max:500,muscles:['back','arms'],guide:['바닥에서 다리로 밀며 팔로 당겨, 올라갈 수 있는 가장 높은 곳까지 올라가요. 점프하지 않아요.','거기서 3~5초 동안 팔을 천천히 펴며 내려와요.','팔이 다 펴지면 발을 바닥에 천천히 내려요. 툭 떨어지지 않아요. 이 움직임이 1회예요.']},
   band_pullup:{id:'band_pullup',name:'밴드 도움 받아 턱걸이',term:'밴드 보조 풀업',summary:'호환되는 밴드의 도움으로 몸을 올려요.',level:'제품·밴드의 호환 확인 후',unit:'회',max:500,muscles:['back','arms'],guide:['철봉과 밴드 설명서에서 함께 써도 되는지 먼저 확인해요.','설명서에 맞게 준비한 뒤 반동 없이 몸을 올려요.','천천히 내려와요. 밴드를 갑자기 놓지 않아요.']}
  };
  const goals={hang:{name:'철봉에 익숙해지기',note:'짧게 매달리며 시작해요.',starter:'hang'},first_pullup:{name:'첫 턱걸이 해 보기',note:'지금 가능한 동작부터 연습해요.',starter:'hang'},more_pullups:{name:'턱걸이 더 해 보기',note:'같은 방법으로 한 기록을 비교해요.',starter:'pullup'}};

@@ -5,8 +5,8 @@
       name: '매달리기',
       shortName: '매달리기',
       steps: [
-        { title: '발을 딛고 바를 잡아요', text: '안정적인 발판에서 바를 잡고, 준비가 되면 발을 천천히 떼요.' },
-        { title: '흔들리지 않고 버텨요', text: '팔을 편 채 편안한 만큼 머물러요. 마칠 때는 발판에 발을 다시 디뎌요.' }
+        { title: '바닥에 서서 바를 잡아요', text: '바 아래 바닥에 서서 두 손으로 바를 잡아요. 점프해서 잡지 않아요.' },
+        { title: '무릎을 굽혀 발을 띄워요', text: '팔을 편 채 편안한 만큼 버텨요. 끝낼 때는 발을 바닥에 천천히 내려요.' }
       ],
       cue: '뛰어오르거나 갑자기 떨어지지 않아요.'
     },
@@ -14,8 +14,8 @@
       name: '어깨 내리기',
       shortName: '어깨 내리기',
       steps: [
-        { title: '팔을 펴고 매달려요', text: '매달리기가 편안할 때 시도해요. 발판에서 발을 천천히 떼요.' },
-        { title: '어깨만 아래로 살짝', text: '팔꿈치는 계속 펴요. 어깨를 귀에서 멀어지게 당겼다가 천천히 돌아와요.' }
+        { title: '바닥에 서서 바를 잡아요', text: '매달리기가 편안할 때 시도해요. 바 아래 바닥에 서서 두 손으로 바를 잡아요.' },
+        { title: '어깨만 아래로 살짝', text: '무릎을 굽혀 발을 띄우고, 팔꿈치는 편 채 어깨를 귀에서 멀어지게 당겼다가 돌아와요. 끝나면 발을 바닥에 천천히 내려요.' }
       ],
       cue: '몸은 아주 조금만 올라와요. 팔꿈치를 굽혀 당기는 동작과 달라요.'
     },
@@ -23,10 +23,29 @@
       name: '턱걸이',
       shortName: '턱걸이',
       steps: [
-        { title: '팔을 펴고 시작해요', text: '발판에서 바를 잡고 발을 천천히 떼요. 몸을 흔들지 않아요.' },
+        { title: '무릎을 굽혀 매달려요', text: '바를 잡고 무릎을 굽혀 발을 띄워요. 팔을 편 채 몸을 흔들지 않아요.' },
         { title: '몸을 당겼다가 내려와요', text: '팔꿈치를 굽혀 가능한 범위까지 올라가요. 턱을 억지로 내밀지 않고 천천히 내려와요.' }
       ],
-      cue: '그림은 위쪽 자세의 예시예요. 그림 높이까지 올라가지 않아도 괜찮아요.'
+      cue: '그림은 턱이 바 위로 올라간 자세예요. 그림 높이까지 올라가지 않아도 괜찮아요.'
+    },
+    // 4단계(턱걸이 · 발 도움)에서 쓰는 그림. render('pullup', { assist: 'feet' }) 로 부른다.
+    pullup_feet: {
+      name: '발 디딤 턱걸이',
+      shortName: '발 디딤 턱걸이',
+      steps: [
+        { title: '바닥에 서서 바를 잡아요', text: '발끝은 바닥에 댄 채 두 손으로 바를 잡아요.' },
+        { title: '다리로 조금 밀며 당겨요', text: '발끝을 바닥에 댄 채 팔로 당겨 올라갔다가 천천히 내려와요. 뛰지 않아요.' }
+      ],
+      cue: '다리 힘은 필요한 만큼만 써요. 발끝이 바닥에서 떨어지지 않는 만큼만 올라가요.'
+    },
+    negative_pullup: {
+      name: '천천히 내려오기',
+      shortName: '천천히 내려오기',
+      steps: [
+        { title: '갈 수 있는 곳까지 올라가요', text: '바닥에서 다리로 밀며 팔로 당겨 올라가요. 점프하지 않아요.' },
+        { title: '3~5초 천천히 내려와요', text: '팔을 천천히 펴며 내려와요. 팔이 다 펴지면 발을 바닥에 천천히 내려요.' }
+      ],
+      cue: '그림은 턱이 바 위로 올라간 자세예요. 그림 높이까지 올라가지 않아도 괜찮아요.'
     },
     band_pullup: {
       name: '밴드 도움 받아 턱걸이',
@@ -42,25 +61,34 @@
 
   // Back view, one fixed camera for every frame. 1 cm = 1.15 SVG units.
   // Product ratios follow OPB01 photos: 80 cm door opening, 5.7 x 11.4 cm end blocks,
-  // 38 mm rubber grips, 18 cm centre U-handle. Body: 160 cm woman.
-  const K = 1.15, CX = 90, FOOT = 259.5, FLOOR = 276.8, DOOR = 40, CASING = 7;
-  const UPPER = 29, FORE = 23, HAND = 8, GRIP_X = 28, SH_X = 15.8, SH_H = 129, LIFT = 8;
+  // 38 mm rubber grips, 18 cm centre U-handle. Body: 160 cm woman standing on the floor (no step).
+  // Bar height (docs/program/INSTALL_HEIGHT.md): the bar sits in the door frame at about 2 m, so a
+  // 160 cm woman reaches it standing; to hang she bends her knees and lifts her feet.
+  const K = 1.15, CX = 90, FLOOR = 276.8, FOOT = FLOOR, DOOR = 40, CASING = 7, TUBE_R = 1.9;
+  const UPPER = 30, FORE = 23.5, HAND = 8.5, GRIP_X = 28, SH_X = 15.8, SH_H = 129, LIFT = 8, CHIN = 138;
   const REACH = Math.sqrt((UPPER + FORE + HAND) ** 2 - (GRIP_X - SH_X) ** 2);
-  const KNUCKLE = SH_H + LIFT + REACH; // standing on the step, straight arms, shoulders lifted by the reach
-  const BAR = KNUCKLE - 0.5;
+  const KNUCKLE = SH_H + LIFT + REACH; // standing on the floor, straight arms, shoulders lifted by the reach (~198 cm)
+  const BAR = KNUCKLE - 0.5; // bar centre ~197 cm, top of the 38 mm tube ~199 cm
+  const KNEE = 44.5, ANKLE = 11.4, TUCK = 70 * Math.PI / 180; // knees bent 70 deg, lower legs toward the camera
+  const SHIN = (KNEE - ANKLE) * Math.cos(TUCK);
   const straightLift = e => KNUCKLE - REACH - (SH_H + LIFT * e);
   const POSES = {
     stand: { ty: 0, e: 1, feet: 'down' },
-    hang: { ty: straightLift(0.15), e: 0.15, feet: 'up' },
-    active: { ty: straightLift(0), e: 0, feet: 'up' },
-    top: { ty: BAR - 6.5 - 138, e: 0, feet: 'up', elbow: [33, 14] }
+    hang: { ty: straightLift(0.15), e: 0.15, feet: 'tucked' },
+    active: { ty: straightLift(0), e: 0, feet: 'tucked' },
+    toes: { ty: 11, e: 0, feet: 'toes', ik: true }, // heels up about 11 cm, toes stay on the floor
+    top: { ty: BAR + 2 - CHIN, e: 0, feet: 'tucked', elbow: [31, 22] }, // chin just over the bar
+    lower: { ty: BAR - 16 - CHIN, e: 0, feet: 'tucked', elbow: [37, 6] } // on the way down
   };
   const FRAMES = {
     hang: [{ pose: 'stand', ban: 'jump' }, { pose: 'hang', ban: 'swing' }],
     scapular_pull: [{ pose: 'stand', ban: 'jump' }, { pose: 'active', cue: 'down' }],
-    pullup: [{ pose: 'hang', ban: 'jump' }, { pose: 'top', ban: 'swing', cue: 'up' }]
+    pullup: [{ pose: 'hang', ban: 'jump' }, { pose: 'top', ban: 'swing', cue: 'up' }],
+    pullup_feet: [{ pose: 'stand', ban: 'jump' }, { pose: 'toes', cue: 'up' }],
+    negative_pullup: [{ pose: 'top', ban: 'jump' }, { pose: 'lower', cue: 'lower' }]
   };
   FRAMES.band_pullup = FRAMES.pullup;
+  const VARIANTS = { 'pullup:feet': 'pullup_feet' };
 
   // Non-finite values are written as "NaN" on purpose so the path check fails loudly.
   const num = v => { const r = Math.round(v * 10) / 10; return Number.isFinite(r) ? String(r === 0 ? 0 : r) : 'NaN'; };
@@ -125,18 +153,15 @@
 
   function scene() {
     const dl = sx(-DOOR), dr = sx(DOOR), cl = sx(-DOOR - CASING), cr = sx(DOOR + CASING);
-    const top = 2, stepTop = sy(2), stepEdge = sy(-2);
+    const top = 2;
     const door = shape(d(['M', cl, top, 'H', cr, 'V', FLOOR, 'H', cl, 'Z']), 'fv-casing') +
       shape(d(['M', dl, top, 'H', dr, 'V', FLOOR, 'H', dl, 'Z']), 'fv-opening') +
       shape(d(['M', dl + 0.6, top, 'V', FLOOR, 'M', dr - 0.6, top, 'V', FLOOR]), 'fv-jamb') +
       shape(d(['M', 9, FLOOR, 'H', 171]), 'fv-floor');
-    const step = shape(d(['M', sx(-21.5), stepTop, 'H', sx(21.5), 'L', sx(23), stepEdge, 'V', FLOOR - 0.6, 'H', sx(-23), 'V', stepEdge, 'Z']), 'fv-step-side') +
-      shape(d(['M', sx(-21.5), stepTop, 'H', sx(21.5), 'L', sx(23), stepEdge, 'H', sx(-23), 'Z']), 'fv-step-top') +
-      shape(d(['M', sx(-23), stepEdge, 'H', sx(23)]), 'fv-step-edge');
-    return `<rect x="1" y="1" width="178" height="280" rx="17" class="fv-backdrop"/><g class="fv-scene">${door}${step}${bar()}</g>`;
+    return `<rect x="1" y="1" width="178" height="280" rx="17" class="fv-backdrop"/><g class="fv-scene">${door}${bar()}</g>`;
   }
   function bar() {
-    const y = sy(BAR), r = 1.9 * K, tube = 1.35 * K, blockW = 5.7 * K, blockH = 11.4 * K;
+    const y = sy(BAR), r = TUBE_R * K, tube = 1.35 * K, blockW = 5.7 * K, blockH = 11.4 * K;
     const ends = [-1, 1].map(side => {
       const outer = sx(side * DOOR), inner = sx(side * (DOOR - 5.7)), x = Math.min(outer, inner);
       const pad = side < 0 ? [x, x + 1.1 * K] : [x + blockW - 1.1 * K, x + blockW];
@@ -158,7 +183,15 @@
   function arm(pose, side) {
     const ty = pose.ty, J = [SH_X, SH_H + LIFT * pose.e + ty], Kn = [GRIP_X, KNUCKLE];
     let E, W;
-    if (pose.elbow) {
+    const len = Math.hypot(Kn[0] - J[0], Kn[1] - J[1]), reach = UPPER + FORE + HAND;
+    if (pose.ik && len < reach) {
+      // Slight bend: elbow out to the side, full bone lengths (two-circle intersection).
+      const lo = FORE + HAND, a = (UPPER * UPPER - lo * lo + len * len) / (2 * len), h = Math.sqrt(Math.max(0, UPPER * UPPER - a * a));
+      const ux = (Kn[0] - J[0]) / len, uy = (Kn[1] - J[1]) / len;
+      E = [J[0] + ux * a + uy * h, J[1] + uy * a - ux * h];
+      const fl = Math.hypot(Kn[0] - E[0], Kn[1] - E[1]);
+      W = [Kn[0] - (Kn[0] - E[0]) / fl * HAND, Kn[1] - (Kn[1] - E[1]) / fl * HAND];
+    } else if (pose.elbow) {
       E = [pose.elbow[0], J[1] - pose.elbow[1]];
       const fl = Math.hypot(Kn[0] - E[0], Kn[1] - E[1]);
       W = [Kn[0] - (Kn[0] - E[0]) / fl * HAND, Kn[1] - (Kn[1] - E[1]) / fl * HAND];
@@ -182,19 +215,32 @@
   }
   function shoe(side, pose) {
     const x = 8.1 * side, ty = pose.ty;
+    if (pose.feet === 'tucked') {
+      // Knees bent: the lower legs point at the camera, so the soles face us and the toes hang down.
+      const a = ty + KNEE - SHIN;
+      const upper = [[0, a + 3.6], [3.1, a + 3.2], [4.1, a + 0.4], [4.6, a - 6], [4.7, a - 12], [4.0, a - 16.3], [2.3, a - 17.8], [0, a - 18.1]];
+      const sole = [[0, a + 2.5], [2.5, a + 2.2], [3.3, a + 0.1], [3.8, a - 6], [3.9, a - 12], [3.3, a - 15.6], [1.9, a - 16.8], [0, a - 17]];
+      const tread = [a - 1.2, a - 5.5, a - 9.5, a - 13.5].map(h => d(['M', sx(x - 2.4), sy(h), 'H', sx(x + 2.4)])).join(' ');
+      return shape(mirrored(upper, 0, x), 'fv-shoe') + shape(mirrored(sole, 0, x), 'fv-sole') + shape(tread, 'fv-tread');
+    }
     const heel = [[0, 10.3], [3.0, 10.0], [3.55, 6.6], [3.85, 2.6], [3.8, 1.3], [0, 1.1]];
     const sole = [[0, 1.7], [3.95, 1.7, 1], [3.95, 0.4], [3.5, -0.15], [0, -0.2]];
-    const toe = [[0, 1.2], [3.5, 0.9], [3.1, -1.4], [1.7, -2.5], [0, -2.7]];
-    return (pose.feet === 'up' ? shape(mirrored(toe, ty, x), 'fv-sole') : '') + shape(mirrored(heel, ty, x), 'fv-shoe') + shape(mirrored(sole, ty, x), 'fv-sole') +
+    // On tiptoe the raised heel shows the underside of the sole down to the toes on the floor.
+    const under = [[0, ty + 1.4], [3.3, ty + 1.3], [3.6, ty * 0.6], [4.2, 1.4], [4.1, 0.1], [3.5, -0.2], [0, -0.3]];
+    const toes = pose.feet === 'toes' ? shape(mirrored(under, 0, x), 'fv-sole') + shape([ty * 0.62, ty * 0.3].map(h => d(['M', sx(x - 2.6), sy(h), 'H', sx(x + 2.6)])).join(' '), 'fv-tread') : '';
+    return toes + shape(mirrored(heel, ty, x), 'fv-shoe') + shape(mirrored(sole, ty, x), 'fv-sole') +
       `<rect x="${num(sx(x - 0.8))}" y="${num(sy(ty + 12.1))}" width="${num(1.6 * K)}" height="${num(2.3 * K)}" rx="0.6" class="fv-tab"/>`;
   }
   function person(pose) {
     const ty = pose.ty, e = pose.e;
-    const shadow = ['-1', '1'].map(s => `<ellipse cx="${num(sx(8.1 * s))}" cy="${num(sy(0) + 0.4)}" rx="${pose.feet === 'up' ? 3.6 : 4.8}" ry="${pose.feet === 'up' ? 0.9 : 1.2}" class="fv-contact${pose.feet === 'up' ? ' fv-contact-soft' : ''}"/>`).join('');
-    // Legs (7/8 leggings), ankles, shoes.
-    const legProfile = [[0, 15.8], [0.08, 16.4], [0.19, 15.2], [0.31, 13.3], [0.43, 11.5], [0.53, 9.9], [0.565, 9.4], [0.64, 10.1], [0.72, 10.6], [0.83, 8.6], [0.94, 6.8], [1, 6.1]];
-    const legs = [-1, 1].map(s => limb([[8.7 * s, 88 + ty], [8.4 * s, 44.5 + ty], [8.1 * s, 11.4 + ty]], legProfile, 0, 0.12)).join(' ');
-    const ankles = [-1, 1].map(s => limb([[8.1 * s, 14 + ty], [8.1 * s, 7 + ty]], [[0, 5.4], [1, 5.6]], 0, 0.2)).join(' ');
+    const off = pose.feet === 'tucked';
+    const shadow = ['-1', '1'].map(s => `<ellipse cx="${num(sx(8.1 * s))}" cy="${num(sy(0) + 0.4)}" rx="${off ? 3.6 : pose.feet === 'toes' ? 3.9 : 4.8}" ry="${off ? 0.9 : 1.2}" class="fv-contact${off ? ' fv-contact-soft' : ''}"/>`).join('');
+    // Legs (7/8 leggings), ankles, shoes. Bent knees shorten the lower leg in this back view.
+    const thigh = 88 - KNEE, shin = off ? SHIN : KNEE - ANKLE, full = thigh + KNEE - ANKLE;
+    const at = t => { const s = t * full; return (s <= thigh ? s : thigh + (s - thigh) * shin / (KNEE - ANKLE)) / (thigh + shin); };
+    const legProfile = [[0, 15.8], [0.08, 16.4], [0.19, 15.2], [0.31, 13.3], [0.43, 11.5], [0.53, 9.9], [0.565, 9.4], [0.64, 10.1], [0.72, 10.6], [0.83, 8.6], [0.94, 6.8], [1, 6.1]].map(([t, w]) => [at(t), w]);
+    const legs = [-1, 1].map(s => limb([[8.7 * s, 88 + ty], [8.4 * s, KNEE + ty], [8.1 * s, KNEE - shin + ty]], legProfile, 0, 0.12)).join(' ');
+    const ankles = off ? '' : [-1, 1].map(s => limb([[8.1 * s, 14 + ty], [8.1 * s, 7 + ty]], [[0, 5.4], [1, 5.6]], 0, 0.2)).join(' ');
     const pelvis = mirrored([[0, 101.8, 1], [12.6, 101.8], [15.4, 94], [16.9, 86], [16.8, 80], [9.5, 73.6], [0, 74.6, 1]], ty);
     const legLines = d(['M', sx(0), sy(93 + ty), 'V', sy(78 + ty)]) + ' ' + [-1, 1].map(s => curve(toSvg(flip([[6.6, 45.0], [8.4, 44.6], [10.2, 45.0]], s), 0, ty), false)).join(' ');
     // Upper body: skin silhouette, racerback tank, shoulder blades.
@@ -212,7 +258,7 @@
     const hairLines = [-1, 1].map(s => curve(toSvg(flip([[4.6, 143.2], [4.6, 150.0], [2.4, 156.4]], s), 0, ty), false)).join(' ') + ' ' + d(['M', sx(0.6), sy(142.2 + ty), 'L', sx(0.3), sy(155.4 + ty)]);
     const bun = `<circle cx="${num(sx(0))}" cy="${num(sy(159.9 + ty))}" r="${num(3.9 * K)}" class="fv-bun"/>` + shape(curve(toSvg([[-2.4, 159.6], [0, 158.4], [2.3, 160.4], [0.4, 162.9]], 0, ty), false) + ' ' + d(['M', sx(-3.2), sy(157.2 + ty), 'Q', sx(0), sy(155.8 + ty), sx(3.2), sy(157.2 + ty)]), 'fv-hair-line');
     const arms = [-1, 1].map(s => arm(pose, s));
-    return `<g class="fv-person">${shadow}${shape(ankles, 'fv-skin')}${shape(legs + ' ' + pelvis, 'fv-legs')}${shape(legLines, 'fv-legs-line')}` +
+    return `<g class="fv-person">${shadow}${ankles ? shape(ankles, 'fv-skin') : ''}${shape(legs + ' ' + pelvis, 'fv-legs')}${shape(legLines, 'fv-legs-line')}` +
       [-1, 1].map(s => shoe(s, pose)).join('') +
       shape(torso, 'fv-skin') + `<ellipse cx="${num(sx(0))}" cy="${num(sy(141.4 + ty))}" rx="${num(4.4 * K)}" ry="${num(1.4 * K)}" class="fv-skin-shade"/>` +
       shape(blades, 'fv-blade') + shape(tank, 'fv-top') + tankShade +
@@ -237,6 +283,7 @@
     let out = '';
     if (frame.cue === 'down') out += [-1, 1].map(s => arrow(sx(11.2 * s), sy(128.4 + pose.ty), sx(11.2 * s), sy(119.2 + pose.ty))).join('');
     if (frame.cue === 'up') out += arrow(sx(-27), sy(80), sx(-27), sy(118));
+    if (frame.cue === 'lower') out += arrow(sx(-27), sy(122), sx(-27), sy(84));
     if (frame.ban) out += ban(frame.ban);
     return out;
   }
@@ -248,16 +295,22 @@
     return `<svg class="fv-diagram" viewBox="0 0 180 282" role="img" aria-label="${escape(catalog[id].steps[step].title)}" data-pose="${frame.pose}">${scene()}${person(pose)}<g class="fv-notes">${annotate(frame, pose)}</g>${id === 'band_pullup' ? bandCard() : ''}</svg>`;
   }
   function render(id, options) {
-    if (!Object.prototype.hasOwnProperty.call(catalog, id)) return '';
-    const item = catalog[id];
+    const own = key => Object.prototype.hasOwnProperty.call(catalog, key);
+    if (!own(id) || Object.values(VARIANTS).includes(id)) return ''; // variants are reached through options.assist only
     options = options || {};
+    // Same exercise, different picture for a different way of doing it (4단계 발 디딤 턱걸이).
+    const variant = Object.prototype.hasOwnProperty.call(VARIANTS, id + ':' + options.assist) ? VARIANTS[id + ':' + options.assist] : null;
+    const key = variant || id, item = catalog[key];
+    const attrs = `data-exercise-visual="${id}"${variant ? ` data-visual-variant="${escape(options.assist)}"` : ''}`;
     const step = Number(options.step) === 1 ? 1 : 0;
     if (options.compact) {
-      return `<figure class="exercise-visual fv-compact" data-exercise-visual="${id}" data-visual-step="${step}" aria-label="${escape(item.name)} 동작 그림">${diagram(id, id === 'hang' ? 1 : step)}<figcaption class="fv-sr-only">${escape(item.shortName)} 동작 그림</figcaption></figure>`;
+      return `<figure class="exercise-visual fv-compact" ${attrs} data-visual-step="${step}" aria-label="${escape(item.name)} 동작 그림">${diagram(key, key === 'hang' ? 1 : step)}<figcaption class="fv-sr-only">${escape(item.shortName)} 동작 그림</figcaption></figure>`;
     }
-    return `<figure class="exercise-visual" data-exercise-visual="${id}" data-visual-step="${step}" aria-label="${escape(item.name)} 준비와 동작 설명 그림"><div class="fv-sequence">${item.steps.map((part, index) => `<div class="fv-panel${index === step ? ' fv-active' : ''}" data-visual-frame="${index}">${diagram(id, index)}<div class="fv-step-label"><span>${index + 1}</span><strong>${escape(part.title)}</strong></div><p class="fv-step-text">${escape(part.text)}</p></div>`).join('')}</div><figcaption><span class="fv-caption-label">그림으로 보는 동작</span>${escape(item.cue)}</figcaption></figure>`;
+    return `<figure class="exercise-visual" ${attrs} data-visual-step="${step}" aria-label="${escape(item.name)} 준비와 동작 설명 그림"><div class="fv-sequence">${item.steps.map((part, index) => `<div class="fv-panel${index === step ? ' fv-active' : ''}" data-visual-frame="${index}">${diagram(key, index)}<div class="fv-step-label"><span>${index + 1}</span><strong>${escape(part.title)}</strong></div><p class="fv-step-text">${escape(part.text)}</p></div>`).join('')}</div><figcaption><span class="fv-caption-label">그림으로 보는 동작</span>${escape(item.cue)}</figcaption></figure>`;
   }
-  const api = { render, catalog };
+  // Bar and body numbers in cm, for tests and the height note (docs/program/INSTALL_HEIGHT.md).
+  const geometry = Object.freeze({ barCm: BAR, barTopCm: BAR + TUBE_R, floorY: FLOOR, cmToSvg: K, standingGripCm: KNUCKLE, chinCm: CHIN, barY: sy(BAR) });
+  const api = { render, catalog, geometry };
   root.FitableVisuals = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
