@@ -56,6 +56,7 @@
    when:'발 디딤 턱걸이 5회씩 3세트가 편해졌다면.',
    plan:{target:2,planned_sets:3,rest_seconds:120},advance:{sessions:2},
    note:'1회 = 위에서 아래까지 3~5초 동안 천천히 내려오기. 이 속도를 지킨 횟수만 적어요.',
+   prepare_check:'머리 위에 부딪힐 것이 없는지 확인해요.',
    cues:['바닥에서 다리로 밀며 팔로 당겨, 올라갈 수 있는 가장 높은 곳까지 올라가요. 점프해서 올라가지 않아요.','거기서 3~5초 동안 팔을 천천히 펴며 내려와요.','팔이 다 펴지면 발을 바닥에 천천히 내려요. 툭 떨어지지 않아요.'],
    stop:['내려오는 속도를 조절하지 못하고 툭 떨어지면 그 세트는 멈춰요. 자주 그러면 한 단계 내려가요.','내려오는 운동은 다음 날 근육이 더 뻐근할 수 있어요. 관절이 아프면 쉬어요.'],
    basis:[{item:'천천히 내려오기',kind:'source',src:'usmc_guide'},{item:'바닥에서 다리로 밀어 올라가기',kind:'ours',src:null},{item:'3~5초 동안',kind:'within',src:'usmc_guide'},{item:'2회 · 3세트',kind:'ours',src:'usmc_zero'},{item:'2분 쉬기',kind:'within',src:'acsm2009'}]},

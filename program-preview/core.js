@@ -36,9 +36,11 @@
  const positive=s=>s.status==='completed'&&Number.isInteger(s.value)&&s.value>0;
  const conditionLabel=w=>`${w.grip==='underhand'?'손바닥이 나를 향하게':'손등이 나를 향하게'} · ${w.assistance==='band'?`밴드 ${w.band_note||''}`:w.assistance==='feet'?'발을 딛고 도움 받기':'도움 없이 하기'}`;
  function completedSets(workouts){return workouts.flatMap(w=>(w.sets||[]).filter(positive).map(s=>({...s,workout:w,performed_on:w.performed_on})));}
+ // 끝낸 운동(완료·중간 종료)의 양수 세트 — 운동한 날·최근 7일 운동 부위가 같은 기준을 쓴다.
+ const finishedSets=workouts=>completedSets((Array.isArray(workouts)?workouts:[]).filter(w=>w&&w.status!=='active'));
  // 운동한 날은 끝낸 운동(완료·중간 종료)의 양수 세트만 센다 — 1/2/4주 집계(habit-progress.js)와 같은 기준.
  function metrics(workouts,legacy=[],now=dateKey()){
-  const sets=completedSets(workouts.filter(w=>w.status!=='active')),dates=new Set([...sets.map(s=>s.performed_on),...legacy.filter(r=>r.value>0).map(r=>r.performed_on)]),weekStart=shiftDate(now,-((new Date(now+'T12:00:00').getDay()+6)%7));let cursor=dates.has(now)?now:shiftDate(now,-1),streak=0;while(dates.has(cursor)){streak++;cursor=shiftDate(cursor,-1);}
+  const sets=finishedSets(workouts),dates=new Set([...sets.map(s=>s.performed_on),...legacy.filter(r=>r.value>0).map(r=>r.performed_on)]),weekStart=shiftDate(now,-((new Date(now+'T12:00:00').getDay()+6)%7));let cursor=dates.has(now)?now:shiftDate(now,-1),streak=0;while(dates.has(cursor)){streak++;cursor=shiftDate(cursor,-1);}
   const recentStart=shiftDate(now,-6);
   return {sets,dates:[...dates],total_days:dates.size,week_days:[...dates].filter(d=>d>=weekStart&&d<=now).length,recent_days:[...dates].filter(d=>d>=recentStart&&d<=now).length,streak};
  }
@@ -67,5 +69,5 @@
  const countedDay=(workouts,day,exceptId)=>(Array.isArray(workouts)?workouts:[]).some(x=>x&&x.id!==exceptId&&x.status!=='active'&&x.performed_on===day&&(x.sets||[]).some(positive));
  const prepareCheck=(levels,exerciseId,assistance)=>levels.find(l=>l.exercise_id===exerciseId&&l.assistance===assistance&&l.prepare_check)?.prepare_check||'';
  const addonFor=(addons,levels,exerciseId,assistance)=>{const l=assistance===undefined?null:levelFor(levels,exerciseId,assistance);return l?Object.values(addons||{}).find(a=>a.level_ids.includes(l.id))||null:null;};
-const api={grips,gripGuide,demoChanged,levelById,levelFor,addonFor,prepareCheck,countedDay,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
+const api={grips,gripGuide,demoChanged,levelById,levelFor,addonFor,prepareCheck,countedDay,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,finishedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
