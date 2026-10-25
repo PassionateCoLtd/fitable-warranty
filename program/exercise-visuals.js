@@ -51,7 +51,7 @@
       name: '밴드 도움 받아 턱걸이',
       shortName: '밴드 도움 턱걸이',
       steps: [
-        { title: '먼저 호환 조건을 확인해요', text: '제품 설명서에서 밴드 사용이 허용되는지, 어떤 방법을 쓰는지 먼저 확인해요.' },
+        { title: '전용 밴드를 걸어요', text: '와이드 풀업바 전용 풀업 밴드(별매)를 사용 방법대로 걸어요. 다른 밴드는 권하지 않아요.' },
         { title: '도움을 받으며 천천히', text: '설명서의 사용 조건을 충족할 때만 시도해요. 반동 없이 몸을 당겼다가 내려와요.' }
       ],
       cue: '밴드 장착법은 이 그림에 표시하지 않았어요. 설명서와 다른 방식으로 연결하지 마세요.'
@@ -288,7 +288,7 @@
     return out;
   }
   function bandCard() {
-    return '<g class="fv-band-symbol"><rect x="147" y="196" width="28" height="44" rx="9" class="fv-band-card"/><path d="M 156 207 Q 151 212 156 224 Q 161 232 166 224 Q 171 212 166 207 Q 161 201 156 207 Z" class="fv-band"/><path d="M 153 233 H 169" class="fv-band-line"/><text x="161" y="252" text-anchor="middle" class="fv-svg-note">호환 확인</text></g>';
+    return '<g class="fv-band-symbol"><rect x="147" y="196" width="28" height="44" rx="9" class="fv-band-card"/><path d="M 156 207 Q 151 212 156 224 Q 161 232 166 224 Q 171 212 166 207 Q 161 201 156 207 Z" class="fv-band"/><path d="M 153 233 H 169" class="fv-band-line"/><text x="161" y="252" text-anchor="middle" class="fv-svg-note">전용 밴드</text></g>';
   }
   function diagram(id, step) {
     const frame = FRAMES[id][step], pose = POSES[frame.pose];
