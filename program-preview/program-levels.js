@@ -64,6 +64,7 @@
    when:'천천히 내려오기 2회씩 3세트가 편해졌다면.',
    plan:{target:1,planned_sets:2,rest_seconds:120},advance:{sessions:2},
    note:'안 되면 0회 시도로 남겨도 괜찮아요. 반동 없이 올라간 횟수만 세요.',
+   prepare_check:'머리 위에 부딪힐 것이 없는지 확인해요.',
    cues:[],
    stop:['몸을 흔들거나 다리를 차서 올라갔다면 그 회는 세지 않아요.','목만 앞으로 빼서 턱을 올리지 않아요.'],
    basis:[{item:'1회 · 2세트',kind:'ours',src:null},{item:'2분 쉬기',kind:'within',src:'acsm2009'},{item:'반동 금지',kind:'source',src:'usmc_guide'}]},
@@ -72,12 +73,14 @@
    when:'턱걸이 1회씩 2세트가 된다면.',
    plan:{target:3,planned_sets:3,rest_seconds:120},advance:null,
    note:'마지막 단계예요. 같은 방법으로 한 기록을 비교하며 조금씩 늘려요.',
+   prepare_check:'머리 위에 부딪힐 것이 없는지 확인해요.',
    cues:[],
    stop:['횟수를 채우려고 반동을 쓰기 시작하면 그 세트는 여기까지 해요.'],
    basis:[{item:'3회',kind:'ours',src:null},{item:'3세트',kind:'within',src:'acsm2009'},{item:'2분 쉬기',kind:'within',src:'acsm2009'}]}
  ];
  const program={
   version:'2026-10-24',
+  addons:{band:{product_no:155,url:'https://fitablekorea.com/product/detail.html?product_no=155&utm_source=fitable_routine&utm_medium=web&utm_campaign=band_addon',level_ids:['feet_assist','slow_lower'],title:'밴드로 도움받을 수도 있어요',body:'와이드 풀업바 전용 풀업 밴드(별매)를 걸면 다리 대신 밴드가 몸을 받쳐 줘요.',link:'밴드 보기'}},
   disclaimer:'공개 자료를 바탕으로 만든 시작 안내예요. 개인 처방이 아니에요.',
   frequency:{text:'주 2~3회 · 연달아 하지 말고 하루 이상 쉬어요',basis:[{item:'주 2회 이상',kind:'source',src:'who'},{item:'주 2~3회',kind:'source',src:'acsm2009'},{item:'하루 이상 쉬기',kind:'ours',src:null}]},
   advance_rule:'같은 조건(동작·손 방향·도움)으로 2번 연속, 모든 세트를 목표만큼 해내면 다음 단계를 열어요. ‘어려움’을 고르거나 불편함을 표시한 운동은 세지 않아요.',
