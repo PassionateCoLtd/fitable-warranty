@@ -67,7 +67,13 @@
  }
  // 그날이 «운동한 날»인지: 끝낸 운동 중 양수 세트가 있으면 참(habit-progress.js participationDays 와 같은 기준). exceptId 운동은 빼고 본다.
  const countedDay=(workouts,day,exceptId)=>(Array.isArray(workouts)?workouts:[]).some(x=>x&&x.id!==exceptId&&x.status!=='active'&&x.performed_on===day&&(x.sets||[]).some(positive));
+ // 첫 진입: 이 브라우저에 저장된 상태가 하나도 없을 때만 시작 화면을 보여 준다(옛 기록·옛 화면 상태가 있으면 바로 홈).
+ const freshVisit=(read,keys)=>{try{return keys.every(k=>{const v=read(k);return v===null||v===undefined;});}catch{return true;}};
+ const menuItems=menu=>(menu?.groups||[]).flatMap(g=>g.items.map(item=>({...item,group:g.name})));
+ // 목록에서 고른 운동의 운동량: 지금 내 단계가 같은 동작·도움이면 그 단계, 아니면 그 동작의 첫 단계, 단계가 없으면 기존 추천(밴드는 «가능한 만큼»).
+ const menuLevel=(levels,item,currentId)=>levels.find(l=>l.id===currentId&&l.exercise_id===item.exercise_id&&l.assistance===item.assistance)||levelFor(levels,item.exercise_id,item.assistance);
+ function withMenuItem(ui,item,levels,currentId){const lv=menuLevel(levels,item,currentId),next=lv?withLevelPlan(ui,lv):withRecommendation(ui,item.exercise_id);return {...next,assistance:item.assistance,band_note:item.assistance==='band'?String(ui.band_note||''):'',grip:grips[item.grip]?item.grip:(grips[ui.grip]?ui.grip:'overhand'),show_setup:false};}
  const prepareCheck=(levels,exerciseId,assistance)=>levels.find(l=>l.exercise_id===exerciseId&&l.assistance===assistance&&l.prepare_check)?.prepare_check||'';
  const addonFor=(addons,levels,exerciseId,assistance)=>{const l=assistance===undefined?null:levelFor(levels,exerciseId,assistance);return l?Object.values(addons||{}).find(a=>a.level_ids.includes(l.id))||null:null;};
-const api={grips,gripGuide,demoChanged,levelById,levelFor,addonFor,prepareCheck,countedDay,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,finishedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
+const api={grips,gripGuide,demoChanged,levelById,levelFor,addonFor,prepareCheck,countedDay,freshVisit,menuItems,menuLevel,withMenuItem,levelStep,withLevelPlan,planMatchesLevel,levelProgress,restoredPlanHint,recommendations,withRecommendation,setRecord,validCondition,commitLocalChange,timerMatches,exercises,goals,dateKey,shiftDate,condition,conditionLabel,positive,completedSets,finishedSets,metrics,groups,timerValue,pauseTimer,sanitize};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.FitableCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -82,6 +82,15 @@
  const program={
   version:'2026-10-24',
   addons:{band:{product_no:155,url:'https://fitablekorea.com/product/detail.html?product_no=155&utm_source=fitable_routine&utm_medium=web&utm_campaign=band_addon',level_ids:['feet_assist','slow_lower'],title:'밴드로 도움받을 수도 있어요',body:'와이드 풀업바 전용 풀업 밴드(별매)를 걸면 다리 대신 밴드가 몸을 받쳐 줘요.',link:'밴드 보기'}},
+  // 첫 진입 «어떤 운동을 하고 싶으세요?» 목록. 이미 그림·운동 정의가 있는 조합만 둔다(새 운동은 그림·근거가 생길 때만).
+  menu:{product_id:'OPB01',title:'어떤 운동을 하고 싶으세요?',summary:'매달리기부터 턱걸이까지',
+   program:{label:'처음이라면',title:'첫 턱걸이 프로그램 · 7단계',body:'내 단계에 맞춰 골라 줘요'},
+   groups:[
+    {name:'매달리기',items:[{id:'hang',exercise_id:'hang',assistance:'none',name:'매달리기'}]},
+    {name:'어깨',items:[{id:'scapular',exercise_id:'scapular_pull',assistance:'none',name:'어깨 내리기'}]},
+    {name:'턱걸이',items:[{id:'pullup_overhand',exercise_id:'pullup',assistance:'none',grip:'overhand',name:'풀업',note:'손등이 나를 향하게'},{id:'pullup_underhand',exercise_id:'pullup',assistance:'none',grip:'underhand',name:'친업',note:'손바닥이 나를 향하게'}]},
+    {name:'쉽게 하는 턱걸이',items:[{id:'feet_assist',exercise_id:'pullup',assistance:'feet',name:'발 디딤 턱걸이'},{id:'slow_lower',exercise_id:'negative_pullup',assistance:'none',name:'천천히 내려오기'},{id:'band',exercise_id:'band_pullup',assistance:'band',name:'밴드 도움 받아 턱걸이',addon:'band',note:'와이드 풀업바 전용 풀업 밴드(별매)가 필요해요.'}]}
+   ]},
   disclaimer:'공개 자료를 바탕으로 만든 시작 안내예요. 개인 처방이 아니에요.',
   frequency:{text:'주 2~3회 · 연달아 하지 말고 하루 이상 쉬어요',basis:[{item:'주 2회 이상',kind:'source',src:'who'},{item:'주 2~3회',kind:'source',src:'acsm2009'},{item:'하루 이상 쉬기',kind:'ours',src:null}]},
   advance_rule:'같은 조건(동작·손 방향·도움)으로 2번 연속, 모든 세트를 목표만큼 해내면 다음 단계를 열어요. ‘어려움’을 고르거나 불편함을 표시한 운동은 세지 않아요.',
