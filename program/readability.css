@@ -17,3 +17,5 @@ main p,.modal p,.guide li,.grip-guide li{white-space:pre-line}.a-home h1{margin-
 .a-home>.a-plan-hero{margin:16px 0 20px}.a-home>.a-bottom-actions{margin:0 0 24px}.a-home .routine-overview{margin-top:0}.a-home .a-row{min-height:58px}.a-home .a-plan-hero>.exercise-visual{width:90px;flex-basis:90px}.a-home .a-plan-hero .fv-diagram{height:128px}.a-home .a-plan-hero strong{font-size:24px}.gear-product>img{height:240px;object-fit:cover;object-position:50% 20%;border-radius:12px}.a-start .onboarding-product{height:170px;object-fit:cover;object-position:50% 20%}
 
 .a-entry>a:not(.button){display:block;width:fit-content;padding:8px 0;line-height:1.6}.a-entry>.text-button{display:block;margin:12px 0}
+
+.a-prepare .fv-step-text,.goal-choices small,.routine-overview .small{font-size:14px;line-height:1.75}
