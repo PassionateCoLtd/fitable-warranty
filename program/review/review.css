@@ -1,0 +1,31 @@
+/* 검토 모드 전용(의견 버튼·핀). 앱 레이아웃을 밀지 않게 전부 position:fixed.
+   의견 버튼은 오른쪽 가장자리 좁은 탭(전체 폭 버튼·타이머를 가리지 않게), 핀은 평소엔 눌리지 않는 표시이고 «의견» 모드에서만 눌린다. */
+#rv-root{position:static;font-family:inherit}
+#rv-root button{font:inherit;cursor:pointer}
+.rv-fab{position:fixed;right:0;top:38%;z-index:2147482000;width:24px;height:58px;padding:0;border:0;border-radius:10px 0 0 10px;background:rgba(23,33,59,.82);color:#fff;font-size:13px!important;font-weight:700!important;letter-spacing:2px;writing-mode:vertical-rl;box-shadow:0 2px 10px rgba(23,33,59,.25)}
+#rv-root:not([data-mode=""]) .rv-fab{display:none}
+#rv-root[data-pins="off"] .rv-pins{display:none}
+.rv-pin{position:fixed;z-index:2147482500;pointer-events:none;opacity:.9;width:22px;height:22px;margin:-11px 0 0 -11px;padding:0;border:2px solid #fff;border-radius:50%;background:#e5484d;color:#fff;font-size:11px!important;font-weight:700!important;line-height:18px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.3)}
+#rv-root[data-mode="pick"] .rv-pin{pointer-events:auto;opacity:1;z-index:2147483050}
+.rv-pin[data-status="fixed"]{background:#2f9e44}
+.rv-pin[data-status="hold"]{background:#868e96}
+.rv-pick{position:fixed;inset:0;z-index:2147483000;background:rgba(229,72,77,.08);cursor:crosshair;touch-action:manipulation}
+.rv-bar{position:fixed;top:0;left:0;right:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top,0px));background:#17213b;color:#fff;font-size:14px;line-height:1.4;cursor:default}
+.rv-bar span{flex:1 1 150px;min-width:0}
+.rv-bar button{height:32px;padding:0 12px;border:1px solid rgba(255,255,255,.4);border-radius:16px;background:transparent;color:#fff;font-size:13px!important}
+.rv-dim{position:fixed;inset:0;z-index:2147483090;background:rgba(23,33,59,.12)}
+.rv-sheet{position:fixed;top:max(8px,env(safe-area-inset-top,0px));left:8px;right:8px;max-width:520px;margin:0 auto;z-index:2147483100;box-sizing:border-box;max-height:calc(100dvh - 16px);overflow:auto;padding:14px;border-radius:16px;background:#fff;color:#17213b;font-size:14px;line-height:1.5;box-shadow:0 12px 40px rgba(23,33,59,.3)}
+.rv-sheet p{margin:0 0 8px;overflow-wrap:anywhere}
+.rv-sheet textarea{display:block;width:100%;box-sizing:border-box;min-height:104px;margin:0 0 8px;padding:10px;border:1px solid #c9cdd6;border-radius:10px;font-family:inherit;font-size:16px;line-height:1.5;color:inherit;resize:vertical}
+.rv-meta{color:#636978;font-size:13px}
+.rv-error{color:#c92a2a;font-size:13px}
+.rv-error:empty{display:none}
+.rv-body{white-space:pre-wrap;font-size:15px}
+.rv-note{padding:8px 10px;border-radius:8px;background:#f1f3f5;font-size:13px}
+.rv-actions{display:flex;justify-content:flex-end;gap:8px}
+.rv-actions button{height:40px;padding:0 18px;border-radius:10px;font-size:15px!important}
+.rv-ghost{border:1px solid #c9cdd6;background:#fff;color:#17213b}
+.rv-primary{border:0;background:#17213b;color:#fff;font-weight:700!important}
+.rv-primary:disabled{opacity:.5}
+.rv-toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:2147483200;max-width:calc(100% - 32px);padding:10px 16px;border-radius:12px;background:#17213b;color:#fff;font-size:14px;pointer-events:none}
+.rv-toast[hidden]{display:none}

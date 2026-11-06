@@ -33,8 +33,8 @@
       name: '발 디딤 턱걸이',
       shortName: '발 디딤 턱걸이',
       steps: [
-        { title: '바닥에 서서 바를 잡아요', text: '발끝은 바닥에 댄 채 두 손으로 바를 잡아요.' },
-        { title: '다리로 조금 밀며 당겨요', text: '발끝을 바닥에 댄 채 팔로 당겨 올라갔다가 천천히 내려와요. 뛰지 않아요.' }
+        { title: '바닥에 서서 바를 잡아요', text: '바를 낮춰 설치하고 고정을 확인해요. 양발을 바닥에 둔 채 무릎을 굽혀 팔을 펴요.' },
+        { title: '다리로 조금 밀며 당겨요', text: '무릎을 펴며 다리로 도와 올라가요. 양발은 바닥에 두고 다시 무릎을 굽혀 내려와요.' }
       ],
       cue: '다리 힘은 필요한 만큼만 써요. 발끝이 바닥에서 떨어지지 않는 만큼만 올라가요.'
     },
@@ -42,19 +42,19 @@
       name: '천천히 내려오기',
       shortName: '천천히 내려오기',
       steps: [
-        { title: '갈 수 있는 곳까지 올라가요', text: '바닥에서 다리로 밀며 팔로 당겨 올라가요. 점프하지 않아요.' },
-        { title: '3~5초 천천히 내려와요', text: '팔을 천천히 펴며 내려와요. 팔이 다 펴지면 발을 바닥에 천천히 내려요.' }
+        { title: '서서 턱이 봉 위에 오게', text: '서서 턱이 봉 위에 오는 높이로 설치하고 고정을 확인해요. 올라가려고 뛰지 않아요.' },
+        { title: '3~5초 천천히 내려와요', text: '무릎을 굽혀 발을 조금 띄우고 3~5초 동안 내려와요. 바닥이 닿거나 힘들면 발로 받쳐 멈춰요.' }
       ],
-      cue: '그림은 턱이 바 위로 올라간 자세예요. 그림 높이까지 올라가지 않아도 괜찮아요.'
+      cue: '시작 자세가 안 되거나 속도를 조절하기 어려우면 매달리기를 선택해요.'
     },
     band_pullup: {
       name: '밴드 도움 받아 턱걸이',
       shortName: '밴드 도움 턱걸이',
       steps: [
-        { title: '전용 밴드를 걸어요', text: '와이드 풀업바 전용 풀업 밴드(별매)를 사용 방법대로 걸어요. 다른 밴드는 권하지 않아요.' },
+        { title: '전용 밴드를 걸어요', text: '전용 밴드를 양 끝 락킹 마운트에 걸어요. 아래로 내려온 밴드에 발이나 무릎을 놓아요. 가운데 회전부에는 걸지 않아요.' },
         { title: '도움을 받으며 천천히', text: '설명서의 사용 조건을 충족할 때만 시도해요. 반동 없이 몸을 당겼다가 내려와요.' }
       ],
-      cue: '밴드 장착법은 이 그림에 표시하지 않았어요. 설명서와 다른 방식으로 연결하지 마세요.'
+      cue: '양 끝 전용 마운트에 장착해요. 가운데 회전부에는 걸지 않아요. 자세한 장착 조건은 아래 공식 안내를 확인해요.'
     }
   };
   function escape(value) { return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
@@ -290,7 +290,16 @@
   function bandCard() {
     return '<g class="fv-band-symbol"><rect x="147" y="196" width="28" height="44" rx="9" class="fv-band-card"/><path d="M 156 207 Q 151 212 156 224 Q 161 232 166 224 Q 171 212 166 207 Q 161 201 156 207 Z" class="fv-band"/><path d="M 153 233 H 169" class="fv-band-line"/><text x="161" y="252" text-anchor="middle" class="fv-svg-note">전용 밴드</text></g>';
   }
+  function lowBarDiagram(id,step){
+    const negative=id==='negative_pullup',lower=negative?step===1:step===0;
+    const headY=lower?133:79,shoulder=headY+27,hip=shoulder+60;
+    const legs=negative&&lower?'M76 '+hip+' L60 238 L80 230 M104 '+hip+' L120 238 L100 230':lower?'M76 '+hip+' L51 226 L65 265 M104 '+hip+' L129 226 L115 265':'M76 '+hip+' L66 265 M104 '+hip+' L114 265';
+    return `<svg class="fv-diagram" viewBox="0 0 180 282" role="img" aria-label="낮춘 철봉에서 ${negative?'내려오기':'양발 디딤'} ${step+1}번 자세"><rect x="2" y="2" width="176" height="278" rx="16" fill="#f7f6f2"/><path d="M20 18V270M160 18V270M18 268H162" fill="none" stroke="#c9c9c5" stroke-width="5"/><path d="M22 101H158" stroke="#8698a3" stroke-width="8"/><circle cx="90" cy="${headY}" r="13" fill="#e6c6ab"/><path d="M90 ${shoulder}V${hip}M76 ${hip}H104" fill="none" stroke="#35415a" stroke-width="23" stroke-linecap="round"/><path d="M78 ${shoulder}L53 ${lower?128:118}L48 101M102 ${shoulder}L127 ${lower?128:118}L132 101" fill="none" stroke="#e6c6ab" stroke-width="9" stroke-linecap="round"/><path d="${legs}" fill="none" stroke="#35415a" stroke-width="12" stroke-linecap="round"/><text x="90" y="24" text-anchor="middle" font-size="10" fill="#35415a">철봉을 낮춰 설치한 예시</text>${negative&&lower?'<text x="90" y="257" text-anchor="middle" font-size="9">바닥이 닿으면 발로 받쳐 멈춰요</text>':''}</svg>`;
+  }
+  function bandMountDiagram(){return `<svg class="fv-diagram" viewBox="0 0 180 282" role="img" aria-label="밴드는 양 끝 전용 마운트에, 가운데 회전부는 금지"><rect x="2" y="2" width="176" height="278" rx="16" fill="#f7f6f2"/><text x="90" y="24" text-anchor="middle" font-size="11">장착 위치 설명도</text><path d="M20 48V251M160 48V251" stroke="#ccc" stroke-width="6"/><path d="M23 80H157" stroke="#81909a" stroke-width="10"/><circle cx="36" cy="83" r="10" fill="none" stroke="#50795d" stroke-width="3"/><circle cx="144" cy="83" r="10" fill="none" stroke="#50795d" stroke-width="3"/><path d="M36 88Q39 226 90 226Q141 226 144 88" fill="none" stroke="#82a58a" stroke-width="7"/><path d="M75 219H105" stroke="#35415a" stroke-width="12" stroke-linecap="round"/><path d="M81 70L99 90M99 70L81 90" stroke="#a54747" stroke-width="3"/><text x="90" y="120" text-anchor="middle" font-size="10">가운데 회전부 금지</text><text x="90" y="253" text-anchor="middle" font-size="10">밴드에 발 또는 무릎을 놓아요</text><text x="90" y="269" text-anchor="middle" font-size="8">제품 설명서의 연결 방법 확인</text></svg>`;}
   function diagram(id, step) {
+    if(id==='pullup_feet'||id==='negative_pullup')return lowBarDiagram(id,step);
+    if(id==='band_pullup'&&step===0)return bandMountDiagram();
     const frame = FRAMES[id][step], pose = POSES[frame.pose];
     return `<svg class="fv-diagram" viewBox="0 0 180 282" role="img" aria-label="${escape(catalog[id].steps[step].title)}" data-pose="${frame.pose}">${scene()}${person(pose)}<g class="fv-notes">${annotate(frame, pose)}</g>${id === 'band_pullup' ? bandCard() : ''}</svg>`;
   }
