@@ -10,6 +10,7 @@
       ],
       cue: '뛰어오르거나 갑자기 떨어지지 않아요.'
     },
+    hang_feet: {name:'발 디딤 매달리기',shortName:'발 디딤 매달리기',steps:[{title:'발이 닿는 높이에서 잡아요',text:'바닥에 양발을 둔 채 팔을 펼 수 있는 높이로 설치해요'},{title:'발을 딛고 무게를 덜어요',text:'팔꿈치를 펴고 무릎을 조금 굽혀요 — 발은 계속 바닥에 두고 편안한 만큼만 버텨요'}],cue:'발로 체중을 받쳐요 — 발을 띄우거나 어깨 힘을 완전히 풀지 않아요'},
     scapular_pull: {
       name: '어깨 내리기',
       shortName: '어깨 내리기',
@@ -81,6 +82,7 @@
     lower: { ty: BAR - 16 - CHIN, e: 0, feet: 'tucked', elbow: [37, 6] } // on the way down
   };
   const FRAMES = {
+    hang_feet: [{pose:'stand',ban:'jump'},{pose:'stand',ban:'swing'}],
     hang: [{ pose: 'stand', ban: 'jump' }, { pose: 'hang', ban: 'swing' }],
     scapular_pull: [{ pose: 'stand', ban: 'jump' }, { pose: 'active', cue: 'down' }],
     pullup: [{ pose: 'hang', ban: 'jump' }, { pose: 'top', ban: 'swing', cue: 'up' }],
@@ -88,7 +90,7 @@
     negative_pullup: [{ pose: 'top', ban: 'jump' }, { pose: 'lower', cue: 'lower' }]
   };
   FRAMES.band_pullup = FRAMES.pullup;
-  const VARIANTS = { 'pullup:feet': 'pullup_feet' };
+  const VARIANTS = { 'pullup:feet': 'pullup_feet', 'hang:feet':'hang_feet' };
 
   // Non-finite values are written as "NaN" on purpose so the path check fails loudly.
   const num = v => { const r = Math.round(v * 10) / 10; return Number.isFinite(r) ? String(r === 0 ? 0 : r) : 'NaN'; };

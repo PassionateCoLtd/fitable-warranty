@@ -2,7 +2,7 @@
 /* View state only. Workout time/records remain owned by FitableCore and the API. */
 (function(root){
  const C=typeof module!=='undefined'&&module.exports?require('./core.js'):root.FitableCore;
- function options(value={}){return {countdown_enabled:value.countdown_enabled!==false,sound_enabled:value.sound_enabled===true};}
+ function options(value={}){return {countdown_enabled:value.countdown_enabled!==false,sound_enabled:value.sound_enabled===undefined||value.sound_enabled===true};}
  function validCountdown(value,workout){return Boolean(value&&workout?.status==='active'&&value.workout_id===workout.id&&Number.isInteger(value.position)&&value.position>=1&&value.position<=workout.planned_sets&&Number.isFinite(value.deadline));}
  function begin(workout,position,enabled,now=Date.now()){
   return enabled?{countdown:{workout_id:workout.id,position,deadline:now+3000},timer:null}:{countdown:null,timer:{workout_id:workout.id,position,kind:'hang',running:true,started_at:now,elapsed:0}};
